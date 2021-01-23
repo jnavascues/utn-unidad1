@@ -38,6 +38,6 @@ if __name__ == '__main__':
     root = Tk()
     vars_modifica = CrearFormModificar(root, campos)
     Button(root, text='Imprimir', command=(lambda: imprimir(vars_modifica))).pack(side=LEFT)
-    Cerrar(root).pack(side=RIGHT)
+    Button(root, text='Cerrar', command=(lambda: root.destroy())).pack(side=RIGHT)
     root.bind('<Return>', (lambda event: imprimir(vars_modifica)))  
     root.mainloop()

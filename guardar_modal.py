@@ -1,30 +1,27 @@
 from tkinter import *
 from guardar import *
-import base_datos
+from base_datos import *
+import val
+
 def show(variables, popupGuardar):
     popupGuardar.destroy()
     imprimir(variables)
 
 
 def guarda(variables, popupGuardar, elobjeto):
-    
-    popupGuardar.destroy()
-    print("guardar------------")
     lista = []
     for variable in variables:
         lista.append(variable.get())
-    print("-----base----------------")
-    mibase = base_datos.miconexion()
-    print(mibase)
-    print(lista)
-    micursor = mibase.cursor()
-    sql = "INSERT INTO producto (titulo, descripcion) VALUES (%s, %s)"
-    print(sql)
-    datos = (lista[0], lista[1])
-    micursor.execute(sql, datos)
-    mibase.commit()
-    print("-------objeto----------------------------")
-    elobjeto.mostrar()
+    validar = lista[0]
+    if (val.validar(validar)==True):
+        popupGuardar.destroy()
+        print("guardar------------")
+        print("-----base----------------")
+        TablaProducto.create(titulo=lista[0],descripcion=lista[1])
+        print("-------objeto----------------------------")
+        elobjeto.mostrar()
+    else:
+        showerror('Titulo No valido', 'El campo de título no cumple los requisitos, ingrese datos alfabéticos')
 
 
 

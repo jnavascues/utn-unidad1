@@ -1,17 +1,18 @@
 from tkinter import *
 from tkinter.messagebox import *
-import base_datos
+from base_datos import *
 from tkinter import ttk
 import val
-from temas.OpcionTemas import EleccionTema
-from guardarModal import *
-from eliminarModal import *
-from modificarModal import *
+from temas.opcion_temas import EleccionTema
+from guardar_modal import *
+from eliminar_modal import *
+from modificar_modal import *
+
 
 class Producto:
 
     def __init__(self, window):
-    
+        #base_datos.crearbd()
         # Ventana principal 
         self.root = window
         self.root.title("Tarea POO")
@@ -103,18 +104,9 @@ class Producto:
         for element in records:
             self.tree.delete(element)
         # Consiguiendo datos
-        sql = 'SELECT * FROM producto ORDER BY id ASC'
-
-        mibase = base_datos.miconexion()
-        micursor = mibase.cursor()
-        
-        micursor.execute(sql)
-        resultado = micursor.fetchall()
-
-        for fila in resultado:
-            print(fila)
-            self.tree.insert('', 0, text = fila[0], values = (fila[1],fila[2]))
-
+        for producto in TablaProducto.select():
+            print(producto.titulo)
+            self.tree.insert('', 0, text = producto.id, values = (producto.titulo,producto.descripcion))
 
     def alta(self,):
         print("Nueva alta de datos")
@@ -122,17 +114,22 @@ class Producto:
         cadena=self.a_val.get()#obtenemos la cadena del campo de texto
         if(val.validar(cadena)=="true"):
             print("validado") 
-            mibase = base_datos.miconexion()
-            print(mibase)
-            micursor = mibase.cursor()
-            sql = "INSERT INTO producto (titulo, descripcion) VALUES (%s, %s)"
-            datos = (self.a_val.get(), self.b_val.get())
-            micursor.execute(sql, datos)
-            mibase.commit()
+            TablaProducto.create(titulo=self.a_val.get(),descripcion=self.b_val.get())
             #showinfo('Validado', 'El registro se ha agregado correctamente')
         else:
             showinfo('No Validado', 'El campo de título no cumple los requisitos, ingrese datos alfabéticos')  
         self.mostrar()
+    
+    def crearbd(self,):
+        try:
+            res = askquestion('Recrear BD', 'Si continua todos los productos guardados se perderan')
+            if res == 'yes' :
+                db.drop_tables([TablaProducto])
+                db.create_tables([TablaProducto])
+                self.mostrar()
+
+        except:
+            showerror('Error','Error al Eliminar la base de datos.')
 
 
 

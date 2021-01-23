@@ -1,6 +1,6 @@
 from tkinter import *
 from eliminar import *
-import base_datos
+from base_datos import *
 
 def show(variables, popupGuardar):
     popupGuardar.destroy()
@@ -14,20 +14,10 @@ def elimina(variables, popupEliminar, elobjeto):
         lista.append(variable.get())
  
     print("-----base----------------")
-    mibase = base_datos.miconexion()
-    print(mibase)
-    print(lista)
+    temp_product = TablaProducto.get(TablaProducto.id == lista[0])
+    temp_product.delete_instance()
 
-    micursor = mibase.cursor()
-
-    sql = "DELETE FROM producto WHERE id = %s"
-    dato = (lista[0],)
-
-    micursor.execute(sql, dato)
-
-    mibase.commit()
-
-    print(micursor.rowcount, "Registro borrado")
+    print("Registro borrado")
     print("-------objeto----------------------------")
     elobjeto.mostrar()
 

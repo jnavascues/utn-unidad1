@@ -8,7 +8,7 @@ Created on Wed Dec 11 14:00:01 2019
 from tkinter import *
 
 archivo = 'persona'
-campos = ('dni')
+campos = ('id')
 
 
 def imprimir(variables):
@@ -24,7 +24,7 @@ def CrearFormEliminar(root, campos):
     div1.pack(side=LEFT)
     div2.pack(side=RIGHT, expand=YES, fill=X)
     variables = []
-    lab = Label(div1, width=10, text="dni")
+    lab = Label(div1, width=10, text="id")
     ent = Entry(div2, width=30, relief=SUNKEN)
     lab.pack(side=TOP)
     ent.pack(side=TOP, fill=X)
@@ -39,6 +39,6 @@ if __name__ == '__main__':
     root = Tk()
     vars_elimina = CrearFormEliminar(root, campos)
     Button(root, text='Imprimir', command=(lambda: imprimir(vars_elimina))).pack(side=LEFT)
-    Cerrar(root).pack(side=RIGHT)
+    Button(root, text='Cerrar', command=(lambda: root.destroy())).pack(side=RIGHT)
     root.bind('<Return>', (lambda event: imprimir(vars_elimina)))  
     root.mainloop()

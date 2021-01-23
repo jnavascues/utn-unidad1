@@ -1,6 +1,6 @@
 from tkinter import *
 from modificar import *
-import base_datos
+from base_datos import *
 
 def show(variables, popupModificar):
     popupModificar.destroy()
@@ -9,26 +9,24 @@ def show(variables, popupModificar):
 
 
 def modifica(variables, popupModificar, elobjeto):
-    popupModificar.destroy()
     lista = []
     for variable in variables:
         lista.append(variable.get())
-    print(lista)
-    mibase = base_datos.miconexion()
-    print(mibase)
-    print(lista[0])
-    print(lista[1])
-    micursor = mibase.cursor()
-    elid = lista[0]
-    tit =lista[1]
-    desc =lista[2]
-    sql = "UPDATE producto SET titulo = " +"'"+ tit +"' , descripcion = " +"'"+ desc +"' WHERE id = "+ elid +""
-
-    print(sql)
-    micursor.execute(sql)
-    mibase.commit()
-    print("-------objeto----------------------------")
-    elobjeto.mostrar()
+    validar = lista[1]
+    if (val.validar(validar)==True):
+        popupModificar.destroy()
+        print(lista)
+        print(lista[0])
+        print(lista[1])
+        elid = lista[0]
+        tit =lista[1]
+        desc =lista[2]
+        actualizar = TablaProducto.update(titulo = tit, descripcion = desc).where(TablaProducto.id == elid)
+        actualizar.execute()
+        print("-------objeto----------------------------")
+        elobjeto.mostrar()
+    else:
+        showerror('Titulo No valido', 'El campo de título no cumple los requisitos, ingrese datos alfabéticos')
 
 def modificar(objeto):
     print("------- ver objeto -----------")
