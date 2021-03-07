@@ -1,4 +1,6 @@
-from tkinter import *
+from tkinter import Tk, Button, Frame, LEFT, RIGHT, YES, X, RIGHT, TOP, StringVar, Entry, Label, SUNKEN
+
+
 archivo = 'persona'
 campos = ('titulo', 'descripcion')
 
@@ -32,7 +34,9 @@ def CrearFormGuardar(root, campos):
 if __name__ == '__main__':
     root = Tk()
     vars_guarda = CrearFormGuardar(root, campos)
-    Button(root, text='Imprimir', command=(lambda: imprimir(vars_guarda))).pack(side=LEFT)
-    Button(root, text='Cerrar', command=(lambda: root.destroy())).pack(side=RIGHT)
+    Button(root, text='Imprimir', command=(
+        lambda: imprimir(vars_guarda))).pack(side=LEFT)
+    Button(root, text='Cerrar', command=(
+        lambda: root.destroy())).pack(side=RIGHT)
     root.bind('<Return>', (lambda event: imprimir(vars_guarda)))
     root.mainloop()

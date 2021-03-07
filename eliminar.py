@@ -5,7 +5,7 @@ Created on Wed Dec 11 14:00:01 2019
 @author: Tomas
 """
 
-from tkinter import *
+from tkinter import Tk, Button, Frame, LEFT, RIGHT, YES, X, RIGHT, TOP, StringVar, Entry, Label, SUNKEN
 
 archivo = 'persona'
 campos = ('id')
@@ -33,12 +33,14 @@ def CrearFormEliminar(root, campos):
     var.set('---')
     variables.append(var)
     return variables
-    
+
 
 if __name__ == '__main__':
     root = Tk()
     vars_elimina = CrearFormEliminar(root, campos)
-    Button(root, text='Imprimir', command=(lambda: imprimir(vars_elimina))).pack(side=LEFT)
-    Button(root, text='Cerrar', command=(lambda: root.destroy())).pack(side=RIGHT)
-    root.bind('<Return>', (lambda event: imprimir(vars_elimina)))  
+    Button(root, text='Imprimir', command=(
+        lambda: imprimir(vars_elimina))).pack(side=LEFT)
+    Button(root, text='Cerrar', command=(
+        lambda: root.destroy())).pack(side=RIGHT)
+    root.bind('<Return>', (lambda event: imprimir(vars_elimina)))
     root.mainloop()

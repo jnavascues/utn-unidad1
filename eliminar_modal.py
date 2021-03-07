@@ -1,6 +1,7 @@
-from tkinter import *
-from eliminar import *
-from base_datos import *
+from tkinter import Toplevel, Button
+from eliminar import imprimir, CrearFormEliminar, campos
+from base_datos import TablaProducto
+
 
 def show(variables, popupGuardar):
     popupGuardar.destroy()
@@ -12,21 +13,16 @@ def elimina(variables, popupEliminar, elobjeto):
     lista = []
     for variable in variables:
         lista.append(variable.get())
- 
+
     print("-----base----------------")
     temp_product = TablaProducto.get(TablaProducto.id == lista[0])
     temp_product.delete_instance()
+    elobjeto.SetEvent("IDBaja", lista[0])
 
     print("Registro borrado")
     print("-------objeto----------------------------")
     elobjeto.mostrar()
 
-
-
-
-
-
-    
 
 def eliminar(objeto):
     print("------- ver objeto -----------")
@@ -34,11 +30,10 @@ def eliminar(objeto):
     print("------- visto objeto -----------")
     popupEliminar = Toplevel()
     vars_eliminar = CrearFormEliminar(popupEliminar, campos)
-    Button(popupEliminar, text='OK', command=(lambda: show(vars_eliminar, popupEliminar))).pack()
-    Button(popupEliminar, text='eliminar', command=(lambda: elimina(vars_eliminar, popupEliminar, objeto))).pack()
-
+    Button(popupEliminar, text='OK', command=(
+        lambda: show(vars_eliminar, popupEliminar))).pack()
+    Button(popupEliminar, text='eliminar', command=(
+        lambda: elimina(vars_eliminar, popupEliminar, objeto))).pack()
     popupEliminar.grab_set()
     popupEliminar.focus_set()
     popupEliminar.wait_window()
-
-

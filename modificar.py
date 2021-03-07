@@ -1,7 +1,8 @@
-from tkinter import *
+from tkinter import Tk, Button, Frame, LEFT, RIGHT, YES, X, RIGHT, TOP, StringVar, Entry, Label, SUNKEN
+
 
 archivo = 'persona'
-campos = ('id', 'Titulo','Descripcion')
+campos = ('id', 'Titulo', 'Descripcion')
 
 
 def imprimir(variables):
@@ -9,10 +10,7 @@ def imprimir(variables):
         print('Input => "%s"' % variable.get())
 
 
-
 def CrearFormModificar(root, campos):
-
-    print("hole")
     formulario = Frame(root)
     div1 = Frame(formulario, width=100)
     div2 = Frame(formulario, padx=7, pady=2)
@@ -20,7 +18,6 @@ def CrearFormModificar(root, campos):
     div1.pack(side=LEFT)
     div2.pack(side=RIGHT, expand=YES, fill=X)
     variables = []
-    
     for field in campos:
         lab = Label(div1, width=10, text=field)
         ent = Entry(div2, width=30, relief=SUNKEN)
@@ -31,13 +28,14 @@ def CrearFormModificar(root, campos):
         var.set('---')
         variables.append(var)
     return variables
-    """    """
-    
+
 
 if __name__ == '__main__':
     root = Tk()
     vars_modifica = CrearFormModificar(root, campos)
-    Button(root, text='Imprimir', command=(lambda: imprimir(vars_modifica))).pack(side=LEFT)
-    Button(root, text='Cerrar', command=(lambda: root.destroy())).pack(side=RIGHT)
-    root.bind('<Return>', (lambda event: imprimir(vars_modifica)))  
+    Button(root, text='Imprimir', command=(
+        lambda: imprimir(vars_modifica))).pack(side=LEFT)
+    Button(root, text='Cerrar', command=(
+        lambda: root.destroy())).pack(side=RIGHT)
+    root.bind('<Return>', (lambda event: imprimir(vars_modifica)))
     root.mainloop()

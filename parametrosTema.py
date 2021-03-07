@@ -1,3 +1,3 @@
 bcolor = 'yellow'
-bfont  = 'Arial'
-bsize  = 12
+bfont = 'Arial'
+bsize = 12
