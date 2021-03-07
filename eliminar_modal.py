@@ -1,39 +1,29 @@
 from tkinter import Toplevel, Button
-from eliminar import imprimir, CrearFormEliminar, campos
+from eliminar import imprimir, crear_form_eliminar, campos
 from base_datos import TablaProducto
 
 
-def show(variables, popupGuardar):
-    popupGuardar.destroy()
+def show(variables, popup_eliminar):
+    popup_eliminar.destroy()
     imprimir(variables)
 
 
-def elimina(variables, popupEliminar, elobjeto):
-    popupEliminar.destroy()
+def elimina(variables, popup_eliminar, elobjeto):
+    popup_eliminar.destroy()
     lista = []
     for variable in variables:
         lista.append(variable.get())
-
-    print("-----base----------------")
     temp_product = TablaProducto.get(TablaProducto.id == lista[0])
     temp_product.delete_instance()
-    elobjeto.SetEvent("IDBaja", lista[0])
-
-    print("Registro borrado")
-    print("-------objeto----------------------------")
+    elobjeto.set_event("IDBaja", lista[0])
     elobjeto.mostrar()
 
 
 def eliminar(objeto):
-    print("------- ver objeto -----------")
-    print(objeto)
-    print("------- visto objeto -----------")
-    popupEliminar = Toplevel()
-    vars_eliminar = CrearFormEliminar(popupEliminar, campos)
-    Button(popupEliminar, text='OK', command=(
-        lambda: show(vars_eliminar, popupEliminar))).pack()
-    Button(popupEliminar, text='eliminar', command=(
-        lambda: elimina(vars_eliminar, popupEliminar, objeto))).pack()
-    popupEliminar.grab_set()
-    popupEliminar.focus_set()
-    popupEliminar.wait_window()
+    popup_eliminar = Toplevel()
+    vars_eliminar = crear_form_eliminar(popup_eliminar, campos)
+    Button(popup_eliminar, text='Eliminar', command=(
+        lambda: elimina(vars_eliminar, popup_eliminar, objeto))).pack()
+    popup_eliminar.grab_set()
+    popup_eliminar.focus_set()
+    popup_eliminar.wait_window()

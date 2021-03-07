@@ -1,14 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec 11 14:00:01 2019
-
-@author: Tomas
-"""
-
-from tkinter import Tk, Button, Frame, LEFT, RIGHT, YES, X, RIGHT, TOP, StringVar, Entry, Label, SUNKEN
+from tkinter import Tk, Button, Frame, LEFT, YES, X, RIGHT, TOP, StringVar, Entry, Label, SUNKEN
 
 archivo = 'persona'
-campos = ('id')
+campos = 'id'
 
 
 def imprimir(variables):
@@ -16,8 +9,8 @@ def imprimir(variables):
         print('Input => "%s"' % variable.get())
 
 
-def CrearFormEliminar(root, campos):
-    formulario = Frame(root)
+def crear_form_eliminar(raiz, ):
+    formulario = Frame(raiz)
     div1 = Frame(formulario, width=100)
     div2 = Frame(formulario, padx=7, pady=2)
     formulario.pack(fill=X)
@@ -37,7 +30,7 @@ def CrearFormEliminar(root, campos):
 
 if __name__ == '__main__':
     root = Tk()
-    vars_elimina = CrearFormEliminar(root, campos)
+    vars_elimina = crear_form_eliminar(root,)
     Button(root, text='Imprimir', command=(
         lambda: imprimir(vars_elimina))).pack(side=LEFT)
     Button(root, text='Cerrar', command=(

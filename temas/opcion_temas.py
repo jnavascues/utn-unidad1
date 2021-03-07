@@ -13,8 +13,9 @@ with shelve.open("temas/OpcionTemas") as db:
 # Defino comando para modificar propiedades de los temas
 # ##################################################################
 
-def EleccionTema (variable):
-    with shelve.open("temas/OpcionTemas") as db:
+
+def eleccion_tema(variable):
+    with shelve.open("temas/OpcionTemas") as datab:
         print(variable)
         print(type(variable))
         if variable == 0:
@@ -26,8 +27,5 @@ def EleccionTema (variable):
         elif variable == 2:
             variable = "tema3"
             print(variable)
-        TemaSeleccionado = db[variable]
-        return TemaSeleccionado
-
-
-
+        tema_seleccionado = datab[variable]
+        return tema_seleccionado

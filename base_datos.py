@@ -18,10 +18,9 @@ try:
         event = CharField()
         titulo = CharField()
 
-    db.connect
     db.create_tables([TablaProducto, TablaRegistros])
 
     print("Base de datos con tabla creada")
-except:
+except():
     print("Hubo un error en el ORM, contacte al desarrollador")
     showinfo('-', 'Hubo un error en el ORM, contacte al desarrollador')

@@ -1,4 +1,4 @@
-from tkinter import Tk, Button, Frame, LEFT, RIGHT, YES, X, RIGHT, TOP, StringVar, Entry, Label, SUNKEN
+from tkinter import Tk, Button, Frame, LEFT, YES, X, RIGHT, TOP, StringVar, Entry, Label, SUNKEN
 
 
 archivo = 'persona'
@@ -10,15 +10,15 @@ def imprimir(variables):
         print('Input => "%s"' % variable.get())
 
 
-def CrearFormModificar(root, campos):
-    formulario = Frame(root)
+def crear_form_modificar(raiz, fields):
+    formulario = Frame(raiz)
     div1 = Frame(formulario, width=100)
     div2 = Frame(formulario, padx=7, pady=2)
     formulario.pack(fill=X)
     div1.pack(side=LEFT)
     div2.pack(side=RIGHT, expand=YES, fill=X)
     variables = []
-    for field in campos:
+    for field in fields:
         lab = Label(div1, width=10, text=field)
         ent = Entry(div2, width=30, relief=SUNKEN)
         lab.pack(side=TOP)
@@ -32,7 +32,7 @@ def CrearFormModificar(root, campos):
 
 if __name__ == '__main__':
     root = Tk()
-    vars_modifica = CrearFormModificar(root, campos)
+    vars_modifica = crear_form_modificar(root, campos)
     Button(root, text='Imprimir', command=(
         lambda: imprimir(vars_modifica))).pack(side=LEFT)
     Button(root, text='Cerrar', command=(
