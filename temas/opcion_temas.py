@@ -15,6 +15,11 @@ with shelve.open("temas/OpcionTemas") as db:
 
 
 def eleccion_tema(variable):
+    """
+    Funcion para eleccion de temas
+    :param variable:
+    :return:
+    """
     with shelve.open("temas/OpcionTemas") as datab:
         print(variable)
         print(type(variable))

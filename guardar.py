@@ -6,11 +6,22 @@ campos = ('titulo', 'descripcion')
 
 
 def imprimir(variables):
+    """
+    funcion debug para imprimir vars en consola
+    :param variables:
+    :return:
+    """
     for variable in variables:
         print('Input => "%s"' % variable.get())
 
 
 def crear_form_guardar(raiz, fields):
+    """
+    funcion para la creacion de popups dinamicos
+    :param raiz: ventana
+    :param fields: campos a crear
+    :return:
+    """
     formulario = Frame(raiz)
     div1 = Frame(formulario, width=100)
     div2 = Frame(formulario, padx=7, pady=2)

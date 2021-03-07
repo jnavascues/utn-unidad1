@@ -1,26 +1,42 @@
 from tkinter import Tk, Button, Frame, X, TOP, StringVar, Entry, Label, CENTER, RAISED, W, E, Radiobutton, IntVar
 from tkinter.messagebox import showerror, askquestion, showinfo
 from datetime import datetime
-from base_datos import TablaProducto, TablaRegistros, db
 from tkinter import ttk
-import val
+
+from base_datos import TablaProducto, TablaRegistros, db
 from temas.opcion_temas import eleccion_tema
 from eliminar_modal import eliminar
 from modificar_modal import modificar
+import val
 
 
 class DefaultClass:
+    """
+    Clase default permite agregar observadores a clases hijas
+    """
     observadores = []
 
     def add(self, obj):
+        """
+        Metodo para registrar Observadores
+        :param obj: Objeto Observador
+        :return:
+        """
         self.observadores.append(obj)
 
     def notify(self):
+        """
+        Metodo de notificacion de cambios, notifica a cada observador registrado
+        :return:
+        """
         for observador in self.observadores:
             observador.update()
 
 
 class Observer:
+    """
+    Clase obsevadora padre, handlea si los obsevadores no implementaron el metodo update correctamente
+    """
     def update(self):
         raise NotImplementedError("Observador no implementado correctamente.")
 
@@ -39,12 +55,19 @@ class Logueador(Observer):
         self.logueador.add(self)
 
     def update(self):
+        """
+        Metodo para registrar un nuevo Log en la tabla registros
+        :return:
+        """
         self.eventdata = self.logueador.get_event()
         TablaRegistros.create(timestamp=datetime.now(),
                               event=self.eventdata[0], titulo=self.eventdata[1])
 
 
 class Producto(DefaultClass):
+    """
+    Clase Productos, Hereda los observadores de la clase Default
+    """
     event = None
     titulo = None
 
@@ -107,22 +130,31 @@ class Producto(DefaultClass):
                                 bg="#222", fg="OrangeRed", command=self.bg_fg_option)
             boton["width"] = ancho_boton
             boton.pack(side=TOP)
+        # #####################################################
+        # ################ FIN DE TEMAS #######################
+        # #####################################################
 
     def pasar_objeto_eliminar(self,):
+        """
+        Metodo helper para TK
+        :return:
+        """
         eliminar(self)
 
     def pasar_objeto_modificar(self,):
+        """
+        Metodo helper para TK
+        :return:
+        """
         modificar(self)
 
     def bg_fg_option(self):
+        """
+        Metodo para manejo de Temas
+        :return:
+        """
         self.temas_opciones["bg"] = eleccion_tema(self.tema_option.get())
         self.root["bg"] = eleccion_tema(self.tema_option.get())
-
-    # #####################################################
-    # ################ FIN DE TEMAS #######################
-    # #####################################################3
-
-    # obteniendo los productos
 
     def mostrar(self,):
         """
@@ -139,6 +171,10 @@ class Producto(DefaultClass):
                 producto.titulo, producto.descripcion))
 
     def alta(self,):
+        """
+        Alta para nuevos productos
+        :return:
+        """
         cadena = self.a_val.get()
         if val.validar(cadena) is True:
             TablaProducto.create(titulo=self.a_val.get(),
@@ -150,6 +186,10 @@ class Producto(DefaultClass):
         self.mostrar()
 
     def crearbd(self,):
+        """
+        Metodo para Recrear la DB desde el boton CrearDB(legacy)
+        :return:
+        """
         try:
             res = askquestion(
                 'Recrear BD', 'Si continua todos los productos guardados se perderan')
@@ -162,9 +202,19 @@ class Producto(DefaultClass):
             showerror('Error', 'Error al Eliminar la base de datos.')
 
     def get_event(self,):
+        """
+        Metodo para obtener los datos del evento
+        :return:
+        """
         return self.event, self.titulo
 
     def set_event(self, event, titulo):
+        """
+        Metodo para reportar un evento de log
+        :param event: Tipo de Evento puede ser Alta,BajaID,Modificacion
+        :param titulo: Titulo del producto afectado por el evento, en caso de ser baja se mostrara el ID
+        :return:
+        """
         self.event = event
         self.titulo = titulo
         self.notify()

@@ -6,11 +6,24 @@ import val
 
 
 def show(variables, popup_modificar):
+    """
+    Funcion para imprimir variables en consola
+    :param variables:
+    :param popup_modificar:
+    :return:
+    """
     popup_modificar.destroy()
     imprimir(variables)
 
 
 def modifica(variables, popup_modificar, elobjeto):
+    """
+    Funcion para modificar un registro
+    :param variables: Titulo y descripcion
+    :param popup_modificar: Popup TK
+    :param elobjeto: objeto producto
+    :return:
+    """
     lista = []
     for variable in variables:
         lista.append(variable.get())
@@ -31,6 +44,11 @@ def modifica(variables, popup_modificar, elobjeto):
 
 
 def modificar(objeto):
+    """
+    Funcion que se encarga de iniciar el nuevo popup(toplevel)
+    :param objeto:
+    :return:
+    """
     popup_modificar = Toplevel()
     vars_modificar = crear_form_modificar(popup_modificar, campos)
     Button(popup_modificar, text='Modificar', command=(

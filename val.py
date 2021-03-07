@@ -2,6 +2,11 @@ import re
 
 
 def validar(cad):
+    """
+    Funcion para validacion del campo Titulo
+    :param cad: String a validar
+    :return: True/False
+    """
     patron = "^[A-Za-z]+(?:[ _-][A-Za-z]+)*$"
     try:
         print("------------------")

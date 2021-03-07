@@ -6,11 +6,24 @@ import val
 
 
 def show(variables, popup_guardar):
+    """
+    funcion debug para imprimir los datos en consola
+    :param variables:
+    :param popup_guardar:
+    :return:
+    """
     popup_guardar.destroy()
     imprimir(variables)
 
 
 def guarda(variables, popup_guardar, elobjeto):
+    """
+    Funcion para altas de nuevos registros
+    :param variables:
+    :param popup_guardar:
+    :param elobjeto: objeto de producto
+    :return:
+    """
     lista = []
     for variable in variables:
         lista.append(variable.get())
@@ -26,6 +39,11 @@ def guarda(variables, popup_guardar, elobjeto):
 
 
 def guardar(objeto):
+    """
+    funcion encargada de crear el nuevo popup
+    :param objeto: Objeto producto
+    :return:
+    """
     popup_guardar = Toplevel()
     vars_guardar = crear_form_guardar(popup_guardar, campos)
     Button(popup_guardar, text='Guardar', command=(

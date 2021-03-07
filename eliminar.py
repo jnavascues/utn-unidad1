@@ -5,11 +5,21 @@ campos = 'id'
 
 
 def imprimir(variables):
+    """
+    funcion debug para imprimir en consola
+    :param variables:
+    :return:
+    """
     for variable in variables:
         print('Input => "%s"' % variable.get())
 
 
 def crear_form_eliminar(raiz, ):
+    """
+    funcion para crear popup de eliminacion dinamico
+    :param raiz: ventana
+    :return:
+    """
     formulario = Frame(raiz)
     div1 = Frame(formulario, width=100)
     div2 = Frame(formulario, padx=7, pady=2)
